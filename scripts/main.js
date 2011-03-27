@@ -3,24 +3,32 @@ require(["jquery", "ast", "ast/traversal", "parsejs"], function(jquery, ast, tra
     function unUsedArguments(a) {
       var fnpat = ast.parse("Function(<nm>, <args>, <body>)");
       var varpat = ast.parse("Var(<n>)");
-      a.alltd(function() {
-          var matches = {};
-          var r = fnpat.match(this, matches);
-          if(r) {
-            matches.args.forEach(function(arg) {
-                var results = matches.body.collect(function(t) {
-                    var matches2 = {n: arg};
-                    return varpat.match(this, matches2) ? this : null;
-                  });
-                if(results.isEmpty()) {
-                  console.log("Unused argument: ", arg.toString());
-                }
-              });
-            return this;
+      a.collect(function() {
+        var matches = {};
+        var r = fnpat.match(this, matches);
+        if(r) {
+          var unusedVars = matches.args.filter(function() {
+            var arg = this;
+            var uses = matches.body.collect(function() {
+              var matches2 = {n: arg};
+              return varpat.match(this, matches2) ? this : new ast.FailNode(this);
+            });
+            if(uses.isEmpty()) {
+              return arg;
+            } else {
+              return new ast.FailNode(arg);
+            }
+          });
+          if(!unusedVars.isEmpty()) {
+            return new ast.ListNode([this.children[0], unusedVars]);
           } else {
-            return null;
+            return new ast.FailNode(this);
           }
-        });
+        } else {
+          return new ast.FailNode(this);
+        }
+      })
+      .debug(true);
     }
     require.ready(function() {
         if(localStorage["code"]) {

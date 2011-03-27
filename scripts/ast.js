@@ -20,7 +20,24 @@ define(function () {
 
     Node.prototype.toPrettyString = function(prefix) {
       return prefix + this.toString();
+    };
+    
+    Node.prototype.hasFailed = function() {
+        return false;
+    };
+    
+    function FailNode(t, meta) {
+        this.t = t;
+        this.meta = meta || {};
     }
+    
+    FailNode.prototype.hasFailed = function() {
+        return true;
+    };
+    
+    FailNode.prototype.toString = function() {
+        return "FAIL: " + this.t.toString();
+    };
 
     function ConsNode(cons, children, meta) {
       this.cons = cons;
@@ -225,6 +242,7 @@ define(function () {
     };
 
     ast.Node = Node;
+    ast.FailNode = FailNode;
     ast.ConsNode = ConsNode;
     ast.ListNode = ListNode;
     ast.IntNode = IntNode;
