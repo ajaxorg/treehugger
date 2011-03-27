@@ -3,31 +3,24 @@ require(["jquery", "ast", "ast/traversal", "parsejs"], function(jquery, ast, tra
     function unUsedArguments(a) {
       var fnpat = ast.parse("Function(<nm>, <args>, <body>)");
       var varpat = ast.parse("Var(<n>)");
-      a.alltd(a.debug);
-      /*
-      traversal.alltd(function(t) {
+      a.alltd(function() {
           var matches = {};
-          var r = fnpat.match(t, matches);
+          var r = fnpat.match(this, matches);
           if(r) {
             matches.args.forEach(function(arg) {
-                var results = traversal.collect(function(t) {
+                var results = matches.body.collect(function(t) {
                     var matches2 = {n: arg};
-                    if(varpat.match(t, matches2)) {
-                      return t;
-                    } else {
-                      return null;
-                    }
-                  }, matches.body);
+                    return varpat.match(this, matches2) ? this : null;
+                  });
                 if(results.isEmpty()) {
                   console.log("Unused argument: ", arg.toString());
                 }
               });
-            return t;
+            return this;
           } else {
             return null;
           }
-        }, a);
-        */
+        });
     }
     require.ready(function() {
         if(localStorage["code"]) {

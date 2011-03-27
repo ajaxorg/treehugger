@@ -13,7 +13,7 @@ define(["ast"], function(ast) {
       };
     }
 
-    Node.prototype.all = function(fn) {
+    traversal.all = function(fn) {
       switch (this.type) {
       case ast.AST_CONS:
         var newChildren = [];
@@ -27,7 +27,6 @@ define(["ast"], function(ast) {
           }
         }
         return new ast.ConsNode(this.cons, newChildren);
-        break;
       case ast.AST_LIST:
         var newChildren = [];
         var result;
@@ -52,7 +51,7 @@ define(["ast"], function(ast) {
       }
     }
 
-    Node.prototype.one = function(fn) {
+    traversal.one = function(fn) {
       switch (this.type) {
       case ast.AST_CONS:
         var newChildren = [];
@@ -102,7 +101,7 @@ define(["ast"], function(ast) {
     /**
      * Sequential application last argument is term
      */
-    Node.prototype.seq = function() {
+    traversal.seq = function() {
       var fn;
       var t = this;
       for ( var i = 0; i < arguments.length; i++) {
@@ -118,7 +117,7 @@ define(["ast"], function(ast) {
     /**
      * Left-choice (<+) application last argument is term
      */
-    Node.prototype.leftChoice = function() {
+    traversal.leftChoice = function() {
       var t = this;
       var fn, result;
       for ( var i = 0; i < arguments.length; i++) {
@@ -129,53 +128,54 @@ define(["ast"], function(ast) {
         }
       }
       return null;
-    }
+    };
 
     // Try
-    Node.prototype.attempt = function(fn) {
+    traversal.attempt = function(fn) {
       var result = fn.call(this);
       return result !== null ? result : this;
-    }
+    };
 
-    Node.prototype.debug = function() {
+    traversal.debug = function() {
       console.log(this.toString());
       return this;
-    }
+    };
 
-    Node.prototype.alltd = function(fn) {
-      console.log("Here!");
-      return this.leftChoice(fn, this.all.curry(this.alltd.curry(fn)));
-    }
+    traversal.alltd = function(fn) {
+      return this.leftChoice(fn, traversal.all.curry(this.alltd.curry(fn)));
+    };
 
-    function topdown (fn, t) {
-      return seq(fn, all.curry(topdown.curry(fn)), t);
-    }
+    traversal.topdown = function(fn) {
+      return this.seq(fn, traversal.all.curry(traversal.topdown.curry(fn)));
+    };
 
-    function bottomup(fn, t) {
-      return seq(all.curry(bottomup.curry(fn)), fn, t);
-    }
+    traversal.bottomup = function(fn) {
+      return this.seq(traversal.all.curry(traversal.bottomup.curry(fn)), fn);
+    };
 
-    function innermost(fn, t) {
-      return bottomup(attempt.curry(seq.curry(fn, innermost.curry(fn))), t);
-    }
+    traversal.innermost = function(fn) {
+      return this.bottomup(traversal.attempt.curry(traversal.seq.curry(fn, traversal.innermost.curry(fn))));
+    };
 
-    function collect(fn, t) {
+    traversal.collect = function(fn) {
       var results = [];
-      alltd(function(t) {
-          if(fn(t)) {
-            results.push(t);
-            return t;
+      this.alltd(function() {
+          var r = fn.call(this);
+          if(r) {
+            results.push(r);
+            return this;
           } else {
             return null;
           }
-        }, t);
+        });
       return new ast.ListNode(results);
-    }
+    };
 
-    traversal.topdown = topdown;
-    traversal.bottomup = bottomup;
-    traversal.innermost = innermost;
-    traversal.collect = collect;
+    for(var p in traversal) {
+        if(traversal.hasOwnProperty(p)) {
+            Node.prototype[p] = traversal[p];
+        }
+    }
 
     return traversal;
   });
