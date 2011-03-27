@@ -3,6 +3,8 @@ require(["jquery", "ast", "ast/traversal", "parsejs"], function(jquery, ast, tra
     function unUsedArguments(a) {
       var fnpat = ast.parse("Function(<nm>, <args>, <body>)");
       var varpat = ast.parse("Var(<n>)");
+      a.alltd(a.debug);
+      /*
       traversal.alltd(function(t) {
           var matches = {};
           var r = fnpat.match(t, matches);
@@ -25,6 +27,7 @@ require(["jquery", "ast", "ast/traversal", "parsejs"], function(jquery, ast, tra
             return null;
           }
         }, a);
+        */
     }
     require.ready(function() {
         if(localStorage["code"]) {

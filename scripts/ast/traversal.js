@@ -2,6 +2,8 @@
 define(["ast"], function(ast) {
     var traversal = {};
 
+    var Node = ast.Node;
+
     if (!Function.prototype.curry) {
       Function.prototype.curry = function () {
         var fn = this, args = Array.prototype.slice.call(arguments);
@@ -11,26 +13,26 @@ define(["ast"], function(ast) {
       };
     }
 
-    function all (fn, t) {
-      switch (t.type) {
+    Node.prototype.all = function(fn) {
+      switch (this.type) {
       case ast.AST_CONS:
         var newChildren = [];
         var result;
-        for ( var i = 0; i < t.children.length; i++) {
-          result = fn(t.children[i]);
+        for ( var i = 0; i < this.children.length; i++) {
+          result = fn.call(this.children[i]);
           if (result !== null) {
             newChildren.push(result);
           } else {
             return null;
           }
         }
-        return new ast.ConsNode(t.cons, newChildren);
+        return new ast.ConsNode(this.cons, newChildren);
         break;
       case ast.AST_LIST:
         var newChildren = [];
         var result;
-        for ( var i = 0; i < t.children.length; i++) {
-          result = fn(t.children[i]);
+        for ( var i = 0; i < this.children.length; i++) {
+          result = fn.call(this.children[i]);
           if (result !== null) {
             newChildren.push(result);
           } else {
@@ -42,7 +44,7 @@ define(["ast"], function(ast) {
       case ast.AST_INT:
       case ast.AST_STRING:
       case ast.AST_PLACEHOLDER:
-        return t;
+        return this;
       default:
         console.log("FAIL: ", t);
         return null;
@@ -50,23 +52,23 @@ define(["ast"], function(ast) {
       }
     }
 
-    function one (fn, t) {
-      switch (t.type) {
+    Node.prototype.one = function(fn) {
+      switch (this.type) {
       case ast.AST_CONS:
         var newChildren = [];
         var result;
         var oneSucceeded = false;
-        for ( var i = 0; i < t.children.length; i++) {
-          result = fn(t.children[i]);
+        for ( var i = 0; i < this.children.length; i++) {
+          result = fn.call(this.children[i]);
           if (result !== null) {
             newChildren.push(result);
             oneSucceeded = true;
           } else {
-            newChildren.push(t.children[i]);
+            newChildren.push(this.children[i]);
           }
         }
         if (oneSucceeded) {
-          return new ast.ConsNode(t.cons, newChildren);
+          return new ast.ConsNode(this.cons, newChildren);
         } else {
           return null;
         }
@@ -75,17 +77,17 @@ define(["ast"], function(ast) {
         var newChildren = [];
         var result;
         var oneSucceeded = false;
-        for ( var i = 0; i < t.children.length; i++) {
-          result = fn(t.children[i]);
+        for ( var i = 0; i < this.children.length; i++) {
+          result = fn.call(this.children[i]);
           if (result !== null) {
             newChildren.push(result);
             oneSucceeded = true;
           } else {
-            newChildren.push(t.children[i]);
+            newChildren.push(this.children[i]);
           }
         }
         if (oneSucceeded) {
-          return new ast.ListNode(t.cons, newChildren);
+          return new ast.ListNode(this.cons, newChildren);
         } else {
           return null;
         }
@@ -93,19 +95,19 @@ define(["ast"], function(ast) {
       case ast.AST_INT:
       case ast.AST_STRING:
       case ast.AST_PLACEHOLDER:
-        return t;
+        return this;
       }
     }
 
     /**
      * Sequential application last argument is term
      */
-    function seq () {
-      var t = arguments[arguments.length - 1];
+    Node.prototype.seq = function() {
       var fn;
-      for ( var i = 0; i < arguments.length - 1; i++) {
+      var t = this;
+      for ( var i = 0; i < arguments.length; i++) {
         fn = arguments[i];
-        t = fn(t);
+        t = fn.call(t);
         if (t === null) {
           return null;
         }
@@ -116,12 +118,12 @@ define(["ast"], function(ast) {
     /**
      * Left-choice (<+) application last argument is term
      */
-    function leftChoice () {
-      var t = arguments[arguments.length - 1];
+    Node.prototype.leftChoice = function() {
+      var t = this;
       var fn, result;
-      for ( var i = 0; i < arguments.length - 1; i++) {
+      for ( var i = 0; i < arguments.length; i++) {
         fn = arguments[i];
-        result = fn(t);
+        result = fn.call(t);
         if (result !== null) {
           return result;
         }
@@ -130,18 +132,19 @@ define(["ast"], function(ast) {
     }
 
     // Try
-    function attempt (fn, t) {
-      var result = fn(t);
-      return result !== null ? result : t;
+    Node.prototype.attempt = function(fn) {
+      var result = fn.call(this);
+      return result !== null ? result : this;
     }
 
-    function debug (t) {
-      console.log(t.toString());
-      return t;
+    Node.prototype.debug = function() {
+      console.log(this.toString());
+      return this;
     }
 
-    function alltd (fn, t) {
-      return leftChoice(fn, all.curry(alltd.curry(fn)), t);
+    Node.prototype.alltd = function(fn) {
+      console.log("Here!");
+      return this.leftChoice(fn, this.all.curry(this.alltd.curry(fn)));
     }
 
     function topdown (fn, t) {
@@ -169,13 +172,6 @@ define(["ast"], function(ast) {
       return new ast.ListNode(results);
     }
 
-    traversal.all = all;
-    traversal.one = one;
-    traversal.seq = seq;
-    traversal.leftChoice = leftChoice;
-    traversal.attempt = attempt;
-    traversal.debug = debug;
-    traversal.alltd = alltd;
     traversal.topdown = topdown;
     traversal.bottomup = bottomup;
     traversal.innermost = innermost;

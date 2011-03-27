@@ -224,6 +224,7 @@ define(function () {
       return values[this.id];
     };
 
+    ast.Node = Node;
     ast.ConsNode = ConsNode;
     ast.ListNode = ListNode;
     ast.IntNode = IntNode;
