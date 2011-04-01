@@ -70,13 +70,14 @@ If we follow a textual pattern by a function, we can transform the result:
          return bindings.n;
        }).debug();
 
-Instead of using the placeholder '_', we now used 'n'. The function is passed a
+Instead of using the placeholder `_`, we now used `n`. The function is passed a
 _bindings_ object whose `n` property will contain the value of the placeholder.
 So, the following will be printed to the Javascript console:
 
     ["2", "3", "1"]
 
-If we want to match _either_ `Num` or `Mul` nodes we can add a pattern for that to the `collect` call:
+If we want to match _either_ `Num` or `Mul` nodes we can add a pattern for that
+to the `collect` call:
 
     var node = ast.parse('Add(Num("2"), Mul(Num("3"), Num("1")))');
     node.collect("Num(n)", function(bindings) {
