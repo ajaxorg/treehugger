@@ -1,7 +1,7 @@
-ast.js
-======
+treehugger.js
+=============
 
-`ast.js` is a Javascript library to represent and manipulate (analyze, transform)
+`treehugger.js` is a Javascript library to represent and manipulate (analyze, transform)
 abstract syntax trees (ASTs). It currently contains of two parts:
 
 * A generic ASTs representation format (loosely
