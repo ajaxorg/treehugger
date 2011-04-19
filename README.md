@@ -6,7 +6,7 @@ abstract syntax trees (ASTs). It currently contains of two parts:
 
 * A generic ASTs representation format (loosely
 based on [ATerms](http://www.meta-environment.org/Meta-Environment/ATerms))
-* A set of generic traversals to query, manipulate and annotate ASTs
+* A set of generic traversals to query, manipulate and annotate ASTs, inspired by [Stratego/XT](http://strategoxt.org)
 
 as a bonus and to get your started it also includes a _parser_ that turns
 Javascript code into an AST in `lib/js/parse.js`.
