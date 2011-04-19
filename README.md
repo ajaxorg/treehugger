@@ -102,11 +102,14 @@ If we want to match _either_ `Num` or `Mul` nodes we can add a pattern for that
 to the `collect` call:
 
     var node = tree.parse('Add(Num("2"), Mul(Num("3"), Num("1")))');
-    node.collectTopDown("Num(n)", function(b) {
-         return b.n;
-       }, "Mul(op1, op2)", function(b) {
+    node.collectTopDown(
+      "Num(n)", function(b) {
+          return b.n;
+        },
+      "Mul(op1, op2)", function(b) {
          return b.op1;
-       }).debug();
+      }
+    ).debug();
 
 This will print:
 
