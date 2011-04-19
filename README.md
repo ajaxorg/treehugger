@@ -80,7 +80,7 @@ A simple example:
     node.collectTopDown("Num(_)").debug();
 
 This will traverse the AST and look for nodes that match the Num(_) pattern,
-where _ (a wildcard) can be anything. The result of the `collect` call in this case will be:
+where _ (a wildcard) can be anything. The result of the `collectTopDown` call in this case will be:
 
     [Num("2"), Num("3"), Num("1")]
 
@@ -99,7 +99,7 @@ So, the following will be printed to the Javascript console:
     ["2", "3", "1"]
 
 If we want to match _either_ `Num` or `Mul` nodes we can add a pattern for that
-to the `collect` call:
+to the `collectTopDown` call:
 
     var node = tree.parse('Add(Num("2"), Mul(Num("3"), Num("1")))');
     node.collectTopDown(
@@ -115,7 +115,7 @@ This will print:
 
     ["2", Num("3")]
 
-Why is that? The AST is traversed top to bottom by `collect`. On its way, it will
+Why is that? The AST is traversed top to bottom by `collectTopDown`. On its way, it will
 try to match every node first against the `Num(n)` pattern. If that succeeds,
 the function after it in the argument list is executed, if the function returns
 a value other than `false`, the traversal stops at that branch and the result
