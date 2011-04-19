@@ -34,11 +34,11 @@ A parser could turn this into the following AST:
          |    |
          3    1
 
-Which is expressed using ast.js's textual representation as follows:
+Which is expressed using treehugger.js's textual representation as follows:
 
     Add(Num("2"), Mul(Num("3"), Num("1")))
 
-Using the `ast.js` API this AST can be contructed as follows:
+Using the `treehugger.js` API this AST can be contructed as follows:
 
     var tree = require('treehugger/tree');
     var node = tree.cons("Add", [tree.cons("Num", [tree.string("2")]),
@@ -49,7 +49,7 @@ Or, more simply:
 
     var node = tree.parse('Add(Num("2"), Mul(Num("3"), Num("1")))');
 
-ast.js has three kinds of AST node types:
+treehugger.js has three kinds of AST node types:
 
 * Strings (e.g. `"2"`, `"myVariable"`), usually representing identifiers or other
   textual values.
