@@ -7,14 +7,15 @@ has generic means to represent and manipulate (analyze, transform)
 It consists of three parts:
 
 * A generic ASTs representation format, inspired by [ATerms](http://www.meta-environment.org/Meta-Environment/ATerms))
-  that can be used to represent programs written in any language (Java, Ruby, Javascript)
+  that can be used to represent programs written in any language (Java, Ruby, Javascript)  
   `lib/treehugger/tree.js`
 * A set of generic traversals to query, manipulate and annotate these ASTs,
-  inspired by [Stratego/XT](http://strategoxt.org)
+  inspired by [Stratego/XT](http://strategoxt.org)  
   `lib/treehugger/traverse.js`
 * A set of analyses for specific languages. Currently:
   - Javascript: a ([Narcissus](http://en.wikipedia.org/wiki/Narcissus_(JavaScript_engine))-based parser
-    and analyses reconstructing the type structure and first attempts at type-inference.
+    and analyses reconstructing the type structure and first attempts at type-inference.  
+    `lib/treehugger/js/*.js`
 
 The project relies on [require.js](http://requirejs.org) for library loading.
 
