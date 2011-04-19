@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ast.js demo</title>
+    <title>treehugger.js demo</title>
     <script data-main="lib/demo" src="lib/require.js"></script>
     <style>
     textarea {
@@ -17,6 +17,12 @@
     </style>
   </head>
   <body>
+  <h1>Treehugger.js demo</h1>
+  This demo shows Javascript to the left, its Abstract Syntax Tree in the middle, and the output of a few analyses to the right.
+  The analyses attempt to reconstruct a prototype type structure from Javascript source and as a bonus perform some simple
+  type inference on variables used in the program.
+  <hr/>
+  <!--
     <form>
     <select id="filepicker">
       <option>lib/ast.js</option>
@@ -28,16 +34,27 @@
       <option>lib/ace/narcissus/jsparse.js</option>
     </select>
     </form>
+    -->
     <table>
     <tr>
       <th>Javascript</th>
       <th>AST</th>
-      <th>Outline</th>
+      <th>Analysis</th>
     </tr>
     <tr>
       <td><textarea id="code" rows="20" cols="42">
-var name = "Zef Hemel";
-console.log(name);
+var name = 10;
+function Person(name) {
+  this.name = name;
+}
+Person.prototype.greet = function() {
+  return "Hello, " + p.name;
+}
+var zef = new Person("Zef");
+var message = zef.greet();
+
+console.log(message);
+
 </textarea></td>
       <td><textarea id="ast" rows="20" cols="42"></textarea></td>
       <td><textarea id="outline" rows="20" cols="42"></textarea></td>
