@@ -43,21 +43,34 @@
     </tr>
     <tr>
       <td><textarea id="code" rows="20" cols="42">
-var name = 10;
+(function() {
 function Person(name) {
   this.name = name;
 }
 Person.prototype.greet = function() {
-  return "Hello, " + p.name;
+  return this.name;
 }
-var zef = new Person("Zef");
-var message = zef.greet();
+function giveBack(val) {
+  return val;
+};
+var p = new Person("Zef");
+p = "Zef";
+var message = p.greet();
+var message2 = giveBack(1);
+var message3 = giveBack("Zef");
+message, message2, message3;
 
-console.log(message);
-
+var o = {};
+o.name = "Zef";
+o.address = {};
+o.address.street = "Zef St.";
+o.address.number = 22;
+}());
 </textarea></td>
       <td><textarea id="ast" rows="20" cols="42"></textarea></td>
       <td><textarea id="outline" rows="20" cols="42"></textarea></td>
     </tr>
+    </table>
+    <button id="analyzebtn">Analyze at cursor</button>
   </body>
 </html>
