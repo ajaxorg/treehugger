@@ -42,27 +42,25 @@
     </tr>
     <tr>
       <td><textarea id="code" rows="20" cols="42">
-(function() {
+var a = 10;
+var s = "hello";
+console.log(a, s);
+
+function giveBack(value) {
+  return value;
+}
+
+var a2 = giveBack(a);
+var s2 = giveBack(s);
+console.log(a2, s2);
+
 function Person(name, age) {
   this.name = name;
   this.age = age;
 }
-Person.prototype.getName = function() {
-  return this.name;
-}
-Person.prototype.getAge = function() {
-  return this.age;
-}
-function giveBack(val) {
-  return val;
-};
-var p = new Person("Zef");
-p = "Zef";
-var nam = p.getName();
-var ag = p.getAge();
-var back1 = giveBack(1);
-var backZef = giveBack("Zef");
-nam, ag, back1, backZef;
+
+var p = new Person("Zef", 27);
+console.log(p.name, p.age);
 
 var obj = {};
 obj.name = "Zef";
@@ -70,8 +68,17 @@ obj.address = {};
 obj.address.street = "Zef St.";
 obj.address.number = 22;
 
-console.log("Hello");
-}());
+/*
+Person.prototype.getName = function() {
+  return this.name;
+}
+Person.prototype.getAge = function() {
+  return this.age;
+}
+var p = new Person("Zef");
+var nam = p.getName();
+var ag = p.getAge();
+*/
 </textarea></td>
       <td><textarea id="ast" rows="20" cols="42"></textarea></td>
       <td><textarea id="outline" rows="20" cols="42"></textarea></td>
