@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>treehugger.js demo</title>
+    <script data-main="lib/demo2" src="lib/require.js"></script>
+    <style>
+    textarea {
+      font-family: "Courier new";
+      font-size: 11pt;
+      width: 100%;
+      height: 100%;
+    }
+    table {
+      width: 100%;
+      border: 0;
+    }
+    </style>
+  </head>
+  <body>
+  <h1>Treehugger.js demo</h1>
+  This demo shows Javascript to the left, its Abstract Syntax Tree in the middle, and the output of a value inference on the right.
+  Move your cursor on a variable in the code view to infer the type/value of the variable  (result appears in the analysis view).
+  <hr/>
+  <!--
+    <form>
+    <select id="filepicker">
+      <option>lib/ast.js</option>
+      <option>lib/traversal.js</option>
+      <option>lib/js/parse.js</option>
+      <option>lib/js/types.js</option>
+      <option>lib/ace/narcissus/jsdefs.js</option>
+      <option>lib/ace/narcissus/jslex.js</option>
+      <option>lib/ace/narcissus/jsparse.js</option>
+    </select>
+    </form>
+    -->
+    <table>
+    <tr>
+      <th>Javascript</th>
+      <th>AST</th>
+      <th>Analysis</th>
+    </tr>
+    <tr>
+      <td><textarea id="code" rows="20" cols="42">
+var a = 10;
+var s = "hello";
+console.log(a, s);
+
+function giveBack(value) {
+  return value;
+}
+
+var a2 = giveBack(a);
+var s2 = giveBack(s);
+console.log(a2, s2);
+
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+var p = new Person("Zef", 27);
+console.log(p.name, p.age);
+
+var obj = {};
+obj.name = "Zef";
+obj.address = {};
+obj.address.street = "Zef St.";
+obj.address.number = 22;
+
+/*
+Person.prototype.getName = function() {
+  return this.name;
+}
+Person.prototype.getAge = function() {
+  return this.age;
+}
+var p = new Person("Zef");
+var nam = p.getName();
+var ag = p.getAge();
+*/
+</textarea></td>
+      <td><textarea id="ast" rows="20" cols="42"></textarea></td>
+      <td><textarea id="outline" rows="20" cols="42"></textarea></td>
+    </tr>
+    </table>
+  </body>
+</html>
