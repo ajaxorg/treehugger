@@ -143,4 +143,4 @@ is executed etc. etc. The `collectTopDown` traversal will not traverse down to t
 Demo
 ----
 
-You can see [treehugger.js in action in this simple demo](http://c9.io/zef/treehugger/workspace/test.html).
+You can see [treehugger.js in action in this simple demo](http://ajaxorg.github.com/treehugger/test.html).

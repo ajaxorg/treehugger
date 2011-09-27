@@ -80,15 +80,15 @@
                 "properties": {
                     "_call": [{
                         "guid": "es5:Function/prototype/call",
-                        "returnValue": []
+                        "returnValue": null
                     }],
                     "_apply": [{
                         "guid": "es5:Function/prototype/apply",
-                        "returnValue": []
+                        "returnValue": null
                     }],
                     "_toSource": [{
                         "guid": "es5:Function/prototype/toSource",
-                        "returnValue": []
+                        "returnValue": null
                     }],
                     "___proto__": ["es5:Object"]
                 }
@@ -102,19 +102,19 @@
                 "properties": {
                     "_push": [{
                         "guid": "es5:Array/prototype/push",
-                        "returnValue": []
+                        "returnValue": null
                     }],
                     "_concat": [{
                         "guid": "es5:Array/prototype/concat",
-                        "returnValue": []
+                        "returnValue": null
                     }],
                     "_slice": [{
                         "guid": "es5:Array/prototype/slice",
-                        "returnValue": []
+                        "returnValue": null
                     }],
                     "_splice": [{
                         "guid": "es5:Array/prototype/splice",
-                        "returnValue": []
+                        "returnValue": null
                     }]
                 }
             }]
@@ -127,7 +127,7 @@
             "_log": [{
                 "guid": "es5:console/log",
                 "doc": "Prints its arguments to the debug console",
-                "returnValue": []
+                "returnValue": null
             }]
         }
     }
