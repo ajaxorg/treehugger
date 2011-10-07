@@ -130,5 +130,32 @@
                 "returnValue": null
             }]
         }
+    },
+    "JSON": {
+        "guid": "es5:JSON",
+        "doc": "JSON API",
+        "properties": {
+            "_parse": [{
+                "guid": "es5:JSON/parse",
+                "doc": "Parses a JSON string and turns it into a Javascript object",
+                "returnValue": "es5:Object"
+            }],
+            "_stringify": [{
+                "guid": "es5:JSON/stringify",
+                "doc": "Serializes a Javascript object to a JSON-encoded string",
+                "returnValue": "es5:String"
+            }]
+        }
+    },
+    "document": {
+        "guid": "es5:document",
+        "doc": "Window's document object",
+        "properties": {
+            "_createElement": [{
+                "guid": "es5:document/createElement",
+                "doc": "Parses a JSON string and turns it into a Javascript object",
+                "returnValue": "es5:Object"
+            }]
+        }
     }
 }
