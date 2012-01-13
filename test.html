@@ -17,72 +17,24 @@
     </style>
   </head>
   <body>
-  <h1>Treehugger.js demo</h1>
-  This demo shows Javascript to the left, its Abstract Syntax Tree in the middle, and the output of a value inference on the right.
-  Move your cursor on a variable in the code view to infer the type/value of the variable  (result appears in the analysis view).
-  <hr/>
-  
-  <!--
-    <form>
-    <select id="filepicker">
-      <option>lib/ast.js</option>
-      <option>lib/traversal.js</option>
-      <option>lib/js/parse.js</option>
-      <option>lib/js/types.js</option>
-      <option>lib/ace/narcissus/jsdefs.js</option>
-      <option>lib/ace/narcissus/jslex.js</option>
-      <option>lib/ace/narcissus/jsparse.js</option>
-    </select>
-    </form>
-    -->
+  <h1>Treehugger.js playground</h1>
     <table>
     <tr>
       <th>Javascript</th>
       <th>AST</th>
-      <th>Analysis</th>
     </tr>
     <tr>
       <td><textarea id="code" rows="20" cols="42">
-var a = 10;
-var s = "hello";
-console.log(a, s);
-
-function giveBack(value) {
-  return value;
-}
-
-var a2 = giveBack(a);
-var s2 = giveBack(s);
-console.log(a2, s2);
-
-function Person(name, age) {
-  this.name = name;
-  this.age = age;
-}
-
-var p = new Person("Zef", 27);
-console.log(p.name, p.age);
-
-var obj = {};
-obj.name = "Zef";
-obj.address = {};
-obj.address.street = "Zef St.";
-obj.address.number = 22;
-
-/*
-Person.prototype.getName = function() {
-  return this.name;
-}
-Person.prototype.getAge = function() {
-  return this.age;
-}
-var p = new Person("Zef");
-var nam = p.getName();
-var ag = p.getAge();
-*/
 </textarea></td>
       <td><textarea id="ast" rows="20" cols="42"></textarea></td>
-      <td><textarea id="outline" rows="20" cols="42"></textarea></td>
+    </tr>
+    <tr>
+      <th>Analysis code</th>
+      <th>Output</th>
+    </tr>
+    <tr>
+      <td><textarea id="analysis" rows="20" cols="42">ast.log();</textarea></td>
+      <td><textarea id="output" rows="20" cols="42"></textarea></td>
     </tr>
     </table>
   </body>
