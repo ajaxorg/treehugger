@@ -13,7 +13,7 @@ It consists of three parts:
   inspired by [Stratego/XT](http://strategoxt.org)  
   `lib/treehugger/traverse.js`
 * A set of analyses for specific languages. Currently:
-  - Javascript: a ([Narcissus](http://en.wikipedia.org/wiki/Narcissus_(JavaScript_engine\))-based parser
+  - Javascript: a ([UglifyJS](https://github.com/mishoo/UglifyJS)-based) parser
     and analyses reconstructing the type structure and first attempts at type-inference.  
     `lib/treehugger/js/*.js`
 
