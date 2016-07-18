@@ -69,7 +69,7 @@ AST Analysis
 
 Treehugger.js is based on the concept of _generic traversals_. A generic traversal
 traverses the tree in a particular order, for instance from top to bottom or from
-the bottom up. At every node the traversal comes accross you can apply one or transformations.
+the bottom up. At every node the traversal comes across you can apply one or transformations.
 Tranformations can either be AST _patterns_, _transformation functions_ or a combination of both.
 
 The `treehugger/traverse.js` library adds a number of methods to AST nodes that make traversals simpler:
